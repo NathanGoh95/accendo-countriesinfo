@@ -1,4 +1,5 @@
 "use client";
+import { intercept } from "mobx";
 import React, { useEffect, useState } from "react";
 
 const API_URL = "https://restcountries.com/v3.1/all";
@@ -76,15 +77,21 @@ const CardInfo = () => {
   };
 
   const refreshData = () => {
-    if (countries) {
-      setFilteredCountries(
-        countries?.filter((item) => {
-          return selectedRegion === "All" || item.region === selectedRegion;
-        }),
-      );
-    } else {
-      setFilteredCountries(countries);
+    // if filteredCountries is empty after filtering then set entire countries array to ensures filteredCountries always have data to display, either after filtering or initially before any filtering is applied
+    if (countries.length > 0) {
+      const filtered = countries.filter((item) => {
+        return selectedRegion === "All" || item.region === selectedRegion;
+      });
+      setFilteredCountries(filtered.length > 0 ? filtered : countries);
     }
+    //   setFilteredCountries(
+    //     countries.filter((item) => {
+    //       return selectedRegion === "All" || item.region === selectedRegion;
+    //     }),
+    //   );
+    // } else {
+    //   setFilteredCountries([]);
+    // }
   };
   useEffect(() => {
     refreshData();
@@ -102,7 +109,7 @@ const CardInfo = () => {
       {/* filter section */}
       <div>
         <label>
-          What do we eat?
+          Filter by Region
           <select value={selectedRegion} onChange={(event) => onSelectRegion(event.target.value)}>
             {uniqueRegionsArray.map((region) => {
               return <option value={region}>{region}</option>;

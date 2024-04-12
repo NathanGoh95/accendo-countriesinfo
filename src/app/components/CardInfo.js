@@ -1,128 +1,48 @@
 "use client";
-import { intercept } from "mobx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { observer } from "mobx-react";
+import { apiStore } from "../store/ApiStore";
+import { filteredCountryStore } from "../store/FilteredCountryStore";
+import { pageModeStore } from "../store/PageModeStore";
 
-const API_URL = "https://restcountries.com/v3.1/all";
-
-const CardInfo = () => {
-  const [apiData, setApiData] = useState([]);
-  const [darkMode, setDarkMode] = useState(true);
-  const [listView, setListView] = useState(true);
-  const [selectedRegion, setSelectedRegion] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]);
-
+const CardInfo = observer(() => {
   useEffect(() => {
-    fetch(API_URL)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setApiData(data);
-      })
-      .catch((error) => console.error(error));
+    apiStore.callApi();
   }, []);
 
-  // To filter the data that I need
-  let countries = [];
-  // Iterate over each data object
-  apiData.map((apiCountry) => {
-    // Check if currencies property exists and it's an object
-    if (apiCountry.currencies && typeof apiCountry.currencies === "object") {
-      // Create variable to store currency from all countries
-      let currencies = [];
-      // Iterate over the keys of currencies object
-      Object.keys(apiCountry.currencies).forEach((currencyKey) => {
-        // Push currency symbol and value into respective arrays, if no currency symbol then only display currency key
-        if (apiCountry.currencies[currencyKey].symbol) {
-          currencies.push(`${apiCountry.currencies[currencyKey].symbol} ${currencyKey}`);
-        } else {
-          currencies.push(`${currencyKey}`);
-        }
-      });
-
-      // Push object containing required params into countries array
-      countries.push({
-        flags: apiCountry.flags.svg,
-        name: apiCountry.name.common,
-        population: apiCountry.population,
-        region: apiCountry.region,
-        capital: apiCountry.capital,
-        currenciesKeys: currencies,
-      });
-    }
-  });
-
-  // Initialize a set to store unique regions
-  const uniqueRegions = new Set();
-  // Iterate over each data object
-  countries.map((regionList) => {
-    // Add the region value to the set
-    uniqueRegions.add(regionList.region);
-  });
-  // Convert the set back to an array to obtain unique regions
-  const uniqueRegionsArray = [...uniqueRegions];
-
-  // Change page mode (dark mode / light mode)
-  const changePageMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  // Change page view (list / card view)
-  const changePageView = () => {
-    setListView(!listView);
-  };
-
   const onSelectRegion = (value) => {
-    setSelectedRegion(value);
+    filteredCountryStore.setSelectedRegion(value);
   };
-
-  const refreshData = () => {
-    // if filteredCountries is empty after filtering then set entire countries array to ensures filteredCountries always have data to display, either after filtering or initially before any filtering is applied
-    if (countries.length > 0) {
-      const filtered = countries.filter((item) => {
-        return selectedRegion === "All" || item.region === selectedRegion;
-      });
-      setFilteredCountries(filtered.length > 0 ? filtered : countries);
-    }
-    //   setFilteredCountries(
-    //     countries.filter((item) => {
-    //       return selectedRegion === "All" || item.region === selectedRegion;
-    //     }),
-    //   );
-    // } else {
-    //   setFilteredCountries([]);
-    // }
-  };
-  useEffect(() => {
-    refreshData();
-  }, [selectedRegion, apiData]);
 
   return (
     <>
-      {/* header section */}
+      {/* header section & toggles*/}
       <div>
-        <h1>Countries {listView ? "Table" : "Card"} View</h1>
+        <h1>Countries {pageModeStore.listView ? "Table" : "Card"} View</h1>
       </div>
-      <div onClick={() => changePageMode()}>{darkMode ? "Dark Mode" : "Light Mode"}</div>
-      <div onClick={() => changePageView()}>{listView ? "Table" : "Card"}</div>
+      <div onClick={pageModeStore.toggleDarkMode}>{pageModeStore.darkMode ? "Dark Mode" : "Light Mode"}</div>
+      <div onClick={pageModeStore.toggleListView}>{pageModeStore.listView ? "Table" : "Card"}</div>
 
       {/* filter section */}
       <div>
         <label>
-          Filter by Region
-          <select value={selectedRegion} onChange={(event) => onSelectRegion(event.target.value)}>
-            {uniqueRegionsArray.map((region) => {
-              return <option value={region}>{region}</option>;
-            })}
+          <select value={filteredCountryStore.selectedRegion} onChange={(event) => onSelectRegion(event.target.value)}>
+            <option value="All">Filter by Region</option>
+            {[...filteredCountryStore.uniqueRegions].map((region) => (
+              <option key={region} value={region}>
+                {region}
+              </option>
+            ))}
           </select>
         </label>
       </div>
 
+      {/* Render countries */}
       <div>
-        {filteredCountries?.map((country, index) => {
+        {filteredCountryStore.filteredCountries.map((country, index) => {
           return (
             <div key={index}>
-              <img src={country.flags} className="w-10 h-10" />
+              <img src={country.flags} className="w-10 h-10" alt={`${country.name} flag`} />
               <h1>{country.name}</h1>
               <p>Population: {country.population} </p>
               <p>Region: {country.region} </p>
@@ -141,6 +61,6 @@ const CardInfo = () => {
       </div>
     </>
   );
-};
+});
 
 export default CardInfo;

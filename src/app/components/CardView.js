@@ -5,7 +5,7 @@ import { apiStore } from "../store/ApiStore";
 import { filteredCountryStore } from "../store/FilteredCountryStore";
 import { pageModeStore } from "../store/PageModeStore";
 
-const CardInfo = observer(() => {
+const CardView = observer(() => {
   useEffect(() => {
     apiStore.callApi();
   }, []);
@@ -47,14 +47,14 @@ const CardInfo = observer(() => {
               <p>Population: {country.population} </p>
               <p>Region: {country.region} </p>
               <p>Capital: {country.capital} </p>
-              <p>Currency:</p>
+              {/* <p>Currency:</p>
               <div className="bg-red-500 flex flex-row">
                 {country.currenciesKeys.map((currency, index) => (
                   <div key={index} className="bg-red-100 mr-3">
                     {currency}
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           );
         })}
@@ -63,4 +63,4 @@ const CardInfo = observer(() => {
   );
 });
 
-export default CardInfo;
+export default CardView;

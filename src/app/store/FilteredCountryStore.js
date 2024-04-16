@@ -1,42 +1,45 @@
 import { makeAutoObservable } from "mobx";
 
 export class FilteredCountryStore {
-  filteredCountries = [];
-  uniqueRegions = new Set(); //Initialize a set to store unique regions
+  filteredCountries = []; // Initialize array to store filtered countries based on selected region
+  uniqueRegions = new Set(); // Initialize a set to store unique regions name
   selectedRegion = "All";
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setFilteredCountries(countries) {
+  setFilteredCountries = (countries) => {
     this.filteredCountries = countries;
-  }
+  }; // Updates filteredCountries array with the provided list of countries
 
-  setUniqueRegions(regions) {
+  setUniqueRegions = (regions) => {
     this.uniqueRegions = regions;
-  }
+  }; // Updates the uniqueRegions set with the provided list of regions
 
-  setSelectedRegion(region) {
+  setSelectedRegion = (region) => {
+    //  Updates the selectedRegion with the newly selected region and triggers the filtering of countries based on the selected region.
     this.selectedRegion = region;
     this.filterCountriesByRegion(); // Call the filter function when selected region changes
-  }
+  };
 
-  filterCountriesByRegion() {
+  filterCountriesByRegion = () => {
     const { selectedRegion } = this;
     let filteredCountries = [];
 
     if (selectedRegion === "All") {
+      // If selected region is 'All', display all countries
       filteredCountries = this.countries;
     } else {
+      // Otherwise filter countries based on selected region
       filteredCountries = this.countries.filter((country) => country.region === selectedRegion);
     }
 
     this.setFilteredCountries(filteredCountries);
-  }
+  };
 
   processData(apiData) {
-    // To filter the data that I need
+    // To filter the required data
     let countries = [];
     // Iterate over each data object
     apiData.map((apiCountry) => {
@@ -62,15 +65,20 @@ export class FilteredCountryStore {
           region: apiCountry.region,
           capital: apiCountry.capital,
           currenciesKeys: currencies,
+          subregion: apiCountry.subregion,
+          topLevelDomains: apiCountry.tld,
         });
 
         this.uniqueRegions.add(apiCountry.region);
       }
     });
 
-    this.countries = countries; // Save all couontries data
+    this.countries = countries; // Save all countries data
     this.setFilteredCountries(countries); // Initialize filtered countries with all data
-    this.setUniqueRegions([...this.uniqueRegions]); // Convert the set back to an array to obtain unique regions
+
+    uniqueRegionsArray = () => {
+      this.setUniqueRegions([...this.uniqueRegions]);
+    }; // Convert the set back to an array to obtain unique regions
   }
 }
 

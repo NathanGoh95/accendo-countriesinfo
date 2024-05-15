@@ -57,16 +57,23 @@ export class FilteredCountryStore {
           }
         });
 
+        let languages = [];
+        if (apiCountry.languages) {
+          languages = Object.values(apiCountry.languages);
+        }
         // Push object containing required params into countries array
         countries.push({
           flags: apiCountry.flags.svg,
           name: apiCountry.name.common,
+          // nativeName: apiCountry.name.native.common,
           population: apiCountry.population,
           region: apiCountry.region,
-          capital: apiCountry.capital,
-          currenciesKeys: currencies,
           subregion: apiCountry.subregion,
+          capital: apiCountry.capital,
           topLevelDomains: apiCountry.tld,
+          currenciesKeys: currencies,
+          languages: languages,
+          // borders: apiCountry.borders,
         });
 
         this.uniqueRegions.add(apiCountry.region);

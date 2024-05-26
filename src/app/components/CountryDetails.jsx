@@ -10,9 +10,9 @@ const CountryDetails = observer(() => {
     apiStore.callApi();
   }, []);
 
-  const onSelectRegion = (value) => {
-    filteredCountryStore.setSelectedRegion(value);
-  };
+  // const onSelectRegion = (value) => {
+  //   filteredCountryStore.setSelectedRegion(value);
+  // };
 
   return (
     <>
@@ -29,7 +29,7 @@ const CountryDetails = observer(() => {
             <div key={index}>
               <img src={country.flags} className="w-60 h-30" alt={`${country.name} flag`} />
               <h1>{country.name}</h1>
-              {/* <p>Native name: {}</p> */}
+              <p>Native name: {country.nativeNames}</p>
               <p>Population: {country.population}</p>
               <p>Region: {country.region}</p>
               <p>Sub Region: {country.subregion}</p>
@@ -37,7 +37,7 @@ const CountryDetails = observer(() => {
               <p>Top Level Domain: {country.topLevelDomains}</p>
               <p>Currencies: {country.currencies.join(", ")}</p>
               <p>Languages: {country.languages.join(", ")}</p>
-              {/* <p>Border Countries: {}</p> */}
+              <p>Border Countries: {}</p>
             </div>
           );
         })}

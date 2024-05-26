@@ -44,7 +44,10 @@ export class FilteredCountryStore {
     // Iterate over each data object
     apiData.map((apiCountry) => {
       // Check if currencies property exists and it's an object
-      if (apiCountry.currencies && typeof apiCountry.currencies === "object") {
+      if (
+        apiCountry.currencies && typeof apiCountry.currencies === "object" &&
+        apiCountry.name.nativeName && typeof apiCountry.name.nativeName === "object"
+      ) {
         // Create variable to store currency from all countries
         let currencies = [];
         // Iterate over the keys of currencies object
@@ -57,15 +60,23 @@ export class FilteredCountryStore {
           }
         });
 
+        let nativeNames = [];
+        Object.keys(apiCountry.name.nativeName).forEach((nativeNameKey) => {
+          if (apiCountry.name.nativeName[nativeNameKey].common) {
+            nativeNames.push(`${apiCountry.name.nativeName[nativeNameKey].common}`);
+          }
+        });
+        
         let languages = [];
         if (apiCountry.languages) {
           languages = Object.values(apiCountry.languages);
         }
+        
         // Push object containing required params into countries array
         countries.push({
           flags: apiCountry.flags.svg,
           name: apiCountry.name.common,
-          // nativeName: apiCountry.name.native.common,
+          nativeNames: nativeNames,
           population: apiCountry.population,
           region: apiCountry.region,
           subregion: apiCountry.subregion,

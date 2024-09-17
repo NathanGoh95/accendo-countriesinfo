@@ -10,9 +10,9 @@ const CountryDetails = observer(() => {
     apiStore.callApi();
   }, []);
 
-  const onSelectRegion = (value) => {
-    filteredCountryStore.setSelectedRegion(value);
-  };
+  // const onSelectRegion = (value) => {
+  //   filteredCountryStore.setSelectedRegion(value);
+  // };
 
   return (
     <>
@@ -27,26 +27,17 @@ const CountryDetails = observer(() => {
         {filteredCountryStore.filteredCountries.map((country, index) => {
           return (
             <div key={index}>
-              <img src={country.flags} className="w-10 h-10" alt={`${country.name} flag`} />
+              <img src={country.flags} className="w-60 h-30" alt={`${country.name} flag`} />
               <h1>{country.name}</h1>
-              <p>Native name: </p>
+              <p>Native name: {country.nativeNames.join(", ")}</p>
               <p>Population: {country.population}</p>
               <p>Region: {country.region}</p>
               <p>Sub Region: {country.subregion}</p>
               <p>Capital: {country.capital}</p>
               <p>Top Level Domain: {country.topLevelDomains}</p>
-              <p>
-                Currencies:
-                <div className="bg-red-500 flex flex-row">
-                  {country.currenciesKeys.map((currency, index) => (
-                    <div key={index} className="bg-red-100 mr-3">
-                      {currency}
-                    </div>
-                  ))}
-                </div>
-              </p>
-              <p>Languages: </p>
-              <p>Border Countries: </p>
+              <p>Currencies: {country.currencies.join(', ')}</p>
+              <p>Languages: {country.languages.join(', ')}</p>
+              <p>Border Countries: {country.borders.join(", ")}</p>
             </div>
           );
         })}

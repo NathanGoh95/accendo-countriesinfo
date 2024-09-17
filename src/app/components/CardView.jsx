@@ -47,14 +47,7 @@ const CardView = observer(() => {
               <p>Population: {country.population} </p>
               <p>Region: {country.region} </p>
               <p>Capital: {country.capital} </p>
-              {/* <p>Currency:</p>
-              <div className="bg-red-500 flex flex-row">
-                {country.currenciesKeys.map((currency, index) => (
-                  <div key={index} className="bg-red-100 mr-3">
-                    {currency}
-                  </div>
-                ))}
-              </div> */}
+              <p>Currency: {country.currencies.join(', ')}</p>
             </div>
           );
         })}

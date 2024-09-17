@@ -1,9 +1,11 @@
+import { map } from "lodash";
 import { makeAutoObservable } from "mobx";
 
 export class FilteredCountryStore {
   filteredCountries = []; // Initialize array to store filtered countries based on selected region
   uniqueRegions = new Set(); // Initialize a set to store unique regions name
   selectedRegion = "All";
+  countryCode = {}; // Store country code and their full
 
   constructor() {
     makeAutoObservable(this);
@@ -23,6 +25,10 @@ export class FilteredCountryStore {
     this.filterCountriesByRegion(); // Call the filter function when selected region changes
   };
 
+  setCountryCode = (countryCode) => {
+    this.countryCode = countryCode;
+  }
+
   filterCountriesByRegion = () => {
     const { selectedRegion } = this;
     let filteredCountries = [];
@@ -39,15 +45,20 @@ export class FilteredCountryStore {
   };
 
   processData(apiData) {
-    // To filter the required data
-    let countries = [];
-    // Iterate over each data object
-    apiData.map((apiCountry) => {
+    let countries = []; // To filter the required data
+    let countryCode = {}; // Initialize country code to name
+
+    // Create a map of country code (cca3) to full name
+    apiData.forEach((apiCountry) => {
+      if (apiCountry.cca3 || apiCountry.name || apiCountry.name.common) {
+        countryCode[apiCountry.cca3] = apiCountry.name.common;
+      }
+    });
+
+    // Process each country and convert borders to full name using the map
+    apiData.forEach((apiCountry) => {
       // Check if currencies property exists and it's an object
-      if (
-        apiCountry.currencies && typeof apiCountry.currencies === "object" &&
-        apiCountry.name.nativeName && typeof apiCountry.name.nativeName === "object"
-      ) {
+      if (apiCountry.currencies && typeof apiCountry.currencies === "object" && apiCountry.name.nativeName && typeof apiCountry.name.nativeName === "object") {
         // Create variable to store currency from all countries
         let currencies = [];
         // Iterate over the keys of currencies object
@@ -60,18 +71,13 @@ export class FilteredCountryStore {
           }
         });
 
-        let nativeNames = [];
-        Object.keys(apiCountry.name.nativeName).forEach((nativeNameKey) => {
-          if (apiCountry.name.nativeName[nativeNameKey].common) {
-            nativeNames.push(`${apiCountry.name.nativeName[nativeNameKey].common}`);
-          }
-        });
-        
-        let languages = [];
-        if (apiCountry.languages) {
-          languages = Object.values(apiCountry.languages);
-        }
-        
+        let nativeNames = map(apiCountry.name.nativeName, (nativeName) => (nativeName.common ? nativeName.common : null)).filter(Boolean);
+
+        let languages = map(apiCountry.languages);
+
+        // Map the border codes to full country names using the countryCode
+        let borderCountries = apiCountry.borders ? map(apiCountry.borders, (code) => countryCode[code] || code) : [];
+
         // Push object containing required params into countries array
         countries.push({
           flags: apiCountry.flags.svg,
@@ -84,7 +90,7 @@ export class FilteredCountryStore {
           topLevelDomains: apiCountry.tld,
           currencies: currencies,
           languages: languages,
-          // borders: apiCountry.borders,
+          borders: borderCountries,
         });
 
         this.uniqueRegions.add(apiCountry.region);
@@ -93,6 +99,7 @@ export class FilteredCountryStore {
 
     this.countries = countries; // Save all countries data
     this.setFilteredCountries(countries); // Initialize filtered countries with all data
+    this.setCountryCode(countryCode); // Set the country code-to-name map for future use
 
     uniqueRegionsArray = () => {
       this.setUniqueRegions([...this.uniqueRegions]);

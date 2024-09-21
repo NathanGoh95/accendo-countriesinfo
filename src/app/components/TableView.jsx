@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { apiStore } from "../store/ApiStore";
 import { filteredCountryStore } from "../store/FilteredCountryStore";
 import { pageModeStore } from "../store/PageModeStore";
+import SearchBar from "./SearchBar";
 
 const TableView = observer(() => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const TableView = observer(() => {
         <h1>Countries {pageModeStore.listView ? "Table" : "Card"} View</h1>
       </div>
       <div onClick={pageModeStore.toggleDarkMode}>{pageModeStore.darkMode ? "Dark Mode" : "Light Mode"}</div>
+      <SearchBar />
       <div onClick={pageModeStore.toggleListView}>{pageModeStore.listView ? "Table" : "Card"}</div>
 
       {/* filter section */}
@@ -48,13 +50,6 @@ const TableView = observer(() => {
               <p>Region: {country.region} </p>
               <p>Capital: {country.capital} </p>
               <p>Currency: {country.currencies.join(', ')}</p>
-              {/* <div className="bg-red-500 flex flex-row">
-                {country.currenciesKeys.map((currency, index) => (
-                  <div key={index} className="bg-red-100 mr-3">
-                    {currency}
-                  </div>
-                ))}
-              </div> */}
             </div>
           );
         })}

@@ -1,7 +1,8 @@
-import { map } from "lodash";
+import { map, filter } from "lodash";
 import { makeAutoObservable } from "mobx";
 
 export class FilteredCountryStore {
+  countries = []; // All countries data
   filteredCountries = []; // Initialize array to store filtered countries based on selected region
   uniqueRegions = new Set(); // Initialize a set to store unique regions name
   selectedRegion = "All";
@@ -27,7 +28,7 @@ export class FilteredCountryStore {
 
   setCountryCode = (countryCode) => {
     this.countryCode = countryCode;
-  }
+  };
 
   filterCountriesByRegion = () => {
     const { selectedRegion } = this;
@@ -40,8 +41,18 @@ export class FilteredCountryStore {
       // Otherwise filter countries based on selected region
       filteredCountries = this.countries.filter((country) => country.region === selectedRegion);
     }
-
     this.setFilteredCountries(filteredCountries);
+  };
+
+  setSearchInput = (searchInput) => {
+    if (!searchInput) {
+      this.setFilteredCountries(this.countries);
+    } else {
+      const filtered = filter(this.countries, (country) => 
+        country.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      this.setFilteredCountries(filtered);
+    }
   };
 
   processData(apiData) {
@@ -58,7 +69,12 @@ export class FilteredCountryStore {
     // Process each country and convert borders to full name using the map
     apiData.forEach((apiCountry) => {
       // Check if currencies property exists and it's an object
-      if (apiCountry.currencies && typeof apiCountry.currencies === "object" && apiCountry.name.nativeName && typeof apiCountry.name.nativeName === "object") {
+      if (
+        apiCountry.currencies &&
+        typeof apiCountry.currencies === "object" &&
+        apiCountry.name.nativeName &&
+        typeof apiCountry.name.nativeName === "object"
+      ) {
         // Create variable to store currency from all countries
         let currencies = [];
         // Iterate over the keys of currencies object
@@ -71,12 +87,16 @@ export class FilteredCountryStore {
           }
         });
 
-        let nativeNames = map(apiCountry.name.nativeName, (nativeName) => (nativeName.common ? nativeName.common : null)).filter(Boolean);
+        let nativeNames = map(apiCountry.name.nativeName, (nativeName) =>
+          nativeName.common ? nativeName.common : null,
+        ).filter(Boolean);
 
         let languages = map(apiCountry.languages);
 
         // Map the border codes to full country names using the countryCode
-        let borderCountries = apiCountry.borders ? map(apiCountry.borders, (code) => countryCode[code] || code) : [];
+        let borderCountries = apiCountry.borders 
+          ? map(apiCountry.borders, (code) => countryCode[code] || code) 
+          : [];
 
         // Push object containing required params into countries array
         countries.push({

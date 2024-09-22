@@ -46,12 +46,20 @@ export class FilteredCountryStore {
 
   setSearchInput = (searchInput) => {
     if (!searchInput) {
+      // If there's no search input, just show the currently filtered countries (based on region)
       this.setFilteredCountries(this.countries);
+      if (this.selectedRegion !== "All") {
+        this.filterCountriesByRegion(); // Ensure the region filter is applied
+      }
     } else {
-      const filtered = filter(this.countries, (country) => 
+      const filteredSearched = this.selectedRegion === "All"
+        ? this.countries // Search all countries if no region is selected
+        : this.filteredCountries; // Only search filtered countries if a region is selected
+
+      const filtered = filter(filteredSearched, (country) => 
         country.name.toLowerCase().includes(searchInput.toLowerCase())
       );
-      this.setFilteredCountries(filtered);
+      this.setFilteredCountries(filtered); // Update filtered countries with the search results
     }
   };
 

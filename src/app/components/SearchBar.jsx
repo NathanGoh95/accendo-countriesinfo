@@ -2,15 +2,20 @@ import { observer } from "mobx-react";
 import { filteredCountryStore } from "../store/FilteredCountryStore";
 import { useState } from "react";
 import { LucideSearch, LucideX } from "lucide-react";
+import { debounce } from "lodash";
 
 const SearchBar = observer(() => {
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
+  const debounceSearch = debounce((value) => {
+    filteredCountryStore.setSearchInput(value);
+  }, 1000);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
-    filteredCountryStore.setSearchInput(value); // Filter countries based on input value
+    debounceSearch(value); // Filter countries based on input value
   };
 
   const clearSearch = () => {

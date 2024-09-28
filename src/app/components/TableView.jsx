@@ -5,6 +5,7 @@ import { apiStore } from "../store/ApiStore";
 import { filteredCountryStore } from "../store/FilteredCountryStore";
 import { pageModeStore } from "../store/PageModeStore";
 import SearchBar from "./SearchBar";
+import Filter from "./Filter";
 
 const TableView = observer(() => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const TableView = observer(() => {
       </div>
       <div onClick={pageModeStore.toggleDarkMode}>{pageModeStore.darkMode ? "Dark Mode" : "Light Mode"}</div>
       <SearchBar />
+      <Filter />
       <div onClick={pageModeStore.toggleListView}>{pageModeStore.listView ? "Table" : "Card"}</div>
 
       {/* filter section */}

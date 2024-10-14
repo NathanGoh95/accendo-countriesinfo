@@ -27,20 +27,6 @@ const TableView = observer(() => {
       <Filter />
       <div onClick={pageModeStore.toggleListView}>{pageModeStore.listView ? "Table" : "Card"}</div>
 
-      {/* filter section */}
-      <div>
-        <label>
-          <select value={filteredCountryStore.selectedRegion} onChange={(event) => onSelectRegion(event.target.value)}>
-            <option value="All">Filter by Region</option>
-            {[...filteredCountryStore.uniqueRegions].map((region) => (
-              <option key={region} value={region}>
-                {region}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
       {/* Render countries */}
       <div>
         {filteredCountryStore.filteredCountries.map((country, index) => {

@@ -6,8 +6,8 @@ import CardView from "./components/CardView";
 export default function Home() {
   return (
     <div>
-      <CardView />
-      {/* <TableView /> */}
+      {/* <CardView /> */}
+      <TableView />
       {/* <CountryDetails /> */}
     </div>
   );

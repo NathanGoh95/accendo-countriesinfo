@@ -6,6 +6,7 @@ import { filteredCountryStore } from "../store/FilteredCountryStore";
 import { pageModeStore } from "../store/PageModeStore";
 import SearchBar from "./SearchBar";
 import Filter from "./Filter";
+import { Tables } from "./Table";
 
 const TableView = observer(() => {
   useEffect(() => {
@@ -29,7 +30,7 @@ const TableView = observer(() => {
 
       {/* Render countries */}
       <div>
-        {filteredCountryStore.filteredCountries.map((country, index) => {
+        {/* {filteredCountryStore.filteredCountries.map((country, index) => {
           return (
             <div key={index}>
               <img src={country.flags} className="w-10 h-10" alt={`${country.name} flag`} />
@@ -40,7 +41,8 @@ const TableView = observer(() => {
               <p>Currency: {country.currencies.join(', ')}</p>
             </div>
           );
-        })}
+        })} */}
+        <Tables countries={filteredCountryStore.filteredCountries} />
       </div>
     </>
   );

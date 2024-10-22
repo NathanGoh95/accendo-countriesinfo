@@ -10,10 +10,6 @@ const CountryDetails = observer(() => {
     apiStore.callApi();
   }, []);
 
-  // const onSelectRegion = (value) => {
-  //   filteredCountryStore.setSelectedRegion(value);
-  // };
-
   return (
     <>
       {/* header section & toggles*/}

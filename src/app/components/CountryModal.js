@@ -1,3 +1,4 @@
+import { KeyboardBackspace } from '@mui/icons-material';
 import { Box, Button, Chip, Modal, Typography } from '@mui/material';
 import * as React from 'react';
 
@@ -9,28 +10,53 @@ export const CountryModal = ({ open, handleClose, country }) => {
       open={open}
       onClose={handleClose}
       aria-labelledby='modal-modal-title'
-      aria-describedby='modal-modal-description'>
+      aria-describedby='modal-modal-description'
+      sx={{
+        '& .MuiBackdrop-root': {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        },
+      }}>
       <Box
         sx={{
           position: 'absolute',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '85rem',
-          height: '30rem',
-          bgcolor: 'background.paper',
+          width: '80rem',
+          height: '32rem',
+          bgcolor: '#f5f5f5',
           boxShadow: 24,
           p: 4,
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'flex-start',
+          alignItems: 'center',
+          justifyContent: 'center',
           borderRadius: '8px',
+          '&:focus': {
+            outline: 'none',
+          },
         }}>
-        <Box sx={{ width: '40%', height: '100%', overflow: 'hidden' }}>
+        <Button
+          onClick={handleClose}
+          variant='contained'
+          color='primary'
+          sx={{ position: 'absolute', top: '2rem', left: '2rem' }}>
+          <KeyboardBackspace sx={{ mr: 1 }} />
+          Back
+        </Button>
+
+        <Box
+          sx={{
+            width: '40%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <img
             src={country.flags}
             alt={`${country.name} flag`}
-            style={{ width: '30rem', height: '20rem', objectFit: 'cover' }}
+            style={{ width: '22rem', height: '14rem', objectFit: 'cover' }}
           />
         </Box>
 
@@ -39,7 +65,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
             width: '60%',
             display: 'flex',
             flexDirection: 'column',
-            pl: 4,
+            justifyContent: 'center',
           }}>
           <Box sx={{ display: 'flex', mb: 2, width: '100%' }}>
             <Typography variant='h3' sx={{ fontWeight: 'bold', mb: 2 }}>
@@ -79,21 +105,23 @@ export const CountryModal = ({ open, handleClose, country }) => {
             </Box>
           </Box>
 
-          <Box sx={{ mt: '1rem', display: 'flex', flexDirection: 'row',}}>
-            <Typography variant='body1' gutterBottom sx={{ alignContent: 'center'}}>
+          <Box sx={{ mt: '1rem', display: 'flex', flexDirection: 'row' }}>
+            <Typography variant='body1' gutterBottom sx={{ alignContent: 'center' }}>
               <strong>Border Countries:</strong>
             </Typography>
             <Box>
               {country.borders?.map((border, idx) => (
-                <Chip key={idx} label={border} variant='outlined' size='small' sx={{ ml: 1, mb: 1 }} />
+                <Chip
+                  key={idx}
+                  label={border}
+                  variant='outlined'
+                  size='small'
+                  sx={{ ml: 1, mb: 1 }}
+                />
               ))}
             </Box>
           </Box>
         </Box>
-
-        {/* <Button onClick={handleClose} variant='contained' color='primary' sx={{ mt: 3 }}>
-          Close
-        </Button> */}
       </Box>
     </Modal>
   );

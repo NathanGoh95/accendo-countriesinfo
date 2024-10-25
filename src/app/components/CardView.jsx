@@ -8,6 +8,7 @@ import SearchBar from './SearchBar';
 import Filter from './Filter';
 import { Cards } from './Card';
 import { CountryModal } from './CountryModal';
+import { ViewSwitchToggle } from './ViewSwitchToggle';
 
 const CardView = observer(() => {
   const [openModal, setOpenModal] = useState(false);
@@ -33,15 +34,6 @@ const CardView = observer(() => {
 
   return (
     <>
-      {/* header section & toggles*/}
-      <div>
-        <h1>Countries {pageModeStore.listView ? "Table" : "Card"} View</h1>
-      </div>
-      <div onClick={pageModeStore.toggleDarkMode}>{pageModeStore.darkMode ? "Dark Mode" : "Light Mode"}</div>
-      <SearchBar />
-      <Filter />
-      <div onClick={pageModeStore.toggleListView}>{pageModeStore.listView ? "Table" : "Card"}</div>
-
       {/* Render countries */}
       <div className='flex flex-wrap justify-center'>
         {filteredCountryStore.filteredCountries.map((country, index) => (

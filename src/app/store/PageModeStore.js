@@ -2,25 +2,25 @@ import { makeAutoObservable } from "mobx";
 
 export class PageModeStore {
   darkMode = true;
-  listView = true;
+  tableView = true;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  toggleListView = () => {
-    this.listView = !this.listView;
+  toggleViewMode = () => {
+    this.tableView = !this.tableView;
   };
 
-  toggleDarkMode = () => {
+  toggleThemeMode = () => {
     this.darkMode = !this.darkMode;
   };
 
-  get getToggleListView() {
-    return this.listView;
+  get getToggleViewMode() {
+    return this.tableView;
   }
 
-  get getToggleDarkMode() {
+  get getToggleThemeMode() {
     return this.darkMode;
   }
 }

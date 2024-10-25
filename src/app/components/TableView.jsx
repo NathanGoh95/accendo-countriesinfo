@@ -33,15 +33,6 @@ const TableView = observer(() => {
 
   return (
     <>
-      {/* header section & toggles*/}
-      <div>
-        <h1>Countries {pageModeStore.listView ? 'Table' : 'Card'} View</h1>
-      </div>
-      <div onClick={pageModeStore.toggleDarkMode}>{pageModeStore.darkMode ? 'Dark Mode' : 'Light Mode'}</div>
-      <SearchBar />
-      <Filter />
-      <div onClick={pageModeStore.toggleListView}>{pageModeStore.listView ? 'Table' : 'Card'}</div>
-
       {/* Render countries */}
       <div>
         <Tables countries={filteredCountryStore.filteredCountries} onRowClick={handleOpenModal} />

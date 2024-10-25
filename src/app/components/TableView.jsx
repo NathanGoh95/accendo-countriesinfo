@@ -26,7 +26,7 @@ const TableView = observer(() => {
     setOpenModal(true);
   };
 
-  const handleCloseModal = (country) => {
+  const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedCountry(null);
   };

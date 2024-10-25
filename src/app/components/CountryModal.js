@@ -24,7 +24,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
           transform: 'translate(-50%, -50%)',
           width: '80rem',
           height: '32rem',
-          bgcolor: '#f5f5f5',
+          bgcolor: '#e9ecef',
           boxShadow: 24,
           p: 4,
           display: 'flex',
@@ -39,8 +39,14 @@ export const CountryModal = ({ open, handleClose, country }) => {
         <Button
           onClick={handleClose}
           variant='contained'
-          color='primary'
-          sx={{ position: 'absolute', top: '2rem', left: '2rem' }}>
+          sx={{
+            position: 'absolute',
+            top: '2rem',
+            left: '2rem',
+            bgcolor: '#ffff',
+            color: 'black',
+            '&:hover': { bgcolor: '#f0f0f0' },
+          }}>
           <KeyboardBackspace sx={{ mr: 1 }} />
           Back
         </Button>
@@ -116,7 +122,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
                   label={border}
                   variant='outlined'
                   size='small'
-                  sx={{ ml: 1, mb: 1 }}
+                  sx={{ ml: '4px', mb: '4px', bgcolor: '#ffff' }}
                 />
               ))}
             </Box>

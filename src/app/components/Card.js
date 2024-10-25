@@ -5,7 +5,7 @@ export const Cards = ({ country, onClick }) => {
   return (
     <Card
       sx={{
-        width: '375px',
+        width: '275px',
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
@@ -14,13 +14,15 @@ export const Cards = ({ country, onClick }) => {
         overflow: 'hidden',
         boxShadow: '0 4px 32px rgba(137,194,217, 0.2)',
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+        mx: '1.5rem',
+        mb: '1.5rem',
         '&:hover': {
           transform: 'translateY(-5px)',
           boxShadow: '0 8px 16px rgba(137,194,217, 0.4)',
         },
       }}
       onClick={() => onClick(country)}>
-      <CardMedia component='img' sx={{ width: '100%', height: '225px', objectFit: 'cover' }} image={country.flags} alt={`${country.name} flag`} />
+      <CardMedia component='img' sx={{ width: '100%', height: '175px', objectFit: 'cover' }} image={country.flags} alt={`${country.name} flag`} />
 
       <CardContent sx={{ background: '#f5f5f5', padding: '24px', paddingX: '16px', paddingY: '8px' }}>
         <Typography variant='h6' component='div' sx={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '4px' }}>

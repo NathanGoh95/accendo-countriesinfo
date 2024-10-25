@@ -16,16 +16,18 @@ const CountryDetails = observer(() => {
       <div>
         <h1>Countries Details</h1>
       </div>
-      <div onClick={pageModeStore.toggleDarkMode}>{pageModeStore.darkMode ? "Dark Mode" : "Light Mode"}</div>
+      <div onClick={pageModeStore.toggleThemeMode}>
+        {pageModeStore.darkMode ? 'Dark Mode' : 'Light Mode'}
+      </div>
 
       {/* Render countries */}
       <div>
         {filteredCountryStore.filteredCountries.map((country, index) => {
           return (
             <div key={index}>
-              <img src={country.flags} className="w-60 h-30" alt={`${country.name} flag`} />
+              <img src={country.flags} className='w-60 h-30' alt={`${country.name} flag`} />
               <h1>{country.name}</h1>
-              <p>Native name: {country.nativeNames.join(", ")}</p>
+              <p>Native name: {country.nativeNames.join(', ')}</p>
               <p>Population: {country.population}</p>
               <p>Region: {country.region}</p>
               <p>Sub Region: {country.subregion}</p>
@@ -33,7 +35,7 @@ const CountryDetails = observer(() => {
               <p>Top Level Domain: {country.topLevelDomains}</p>
               <p>Currencies: {country.currencies.join(', ')}</p>
               <p>Languages: {country.languages.join(', ')}</p>
-              <p>Border Countries: {country.borders.join(", ")}</p>
+              <p>Border Countries: {country.borders.join(', ')}</p>
             </div>
           );
         })}

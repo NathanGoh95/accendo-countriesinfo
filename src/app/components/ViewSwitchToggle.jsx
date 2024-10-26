@@ -4,35 +4,44 @@ import { Box, Typography, Switch, styled } from '@mui/material';
 import * as React from 'react';
 
 const ViewToggleSwitch = styled(Switch)(({ theme }) => ({
-  width: 42,
-  height: 24,
+  width: 28,
+  height: 16,
   padding: 0,
+  display: 'flex',
+  '&:active': {
+    '& .MuiSwitch-thumb': {
+      width: 15,
+    },
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      transform: 'translateX(9px)',
+    },
+  },
   '& .MuiSwitch-switchBase': {
-    padding: 0,
-    margin: 2,
+    padding: 4,
     '&.Mui-checked': {
-      transform: 'translateX(18px)',
+      transform: 'translateX(12px)',
+      color: '#fff',
       '& + .MuiSwitch-track': {
-        backgroundColor: 'transparent',
-        opacity: 0.2,
-      },
-      '& .MuiSwitch-thumb': {
-        backgroundColor: '#000000',
+        opacity: 1,
+        backgroundColor: 'transparent', // Transparent track when checked
       },
     },
   },
   '& .MuiSwitch-thumb': {
-    width: 20,
-    height: 20,
-    borderRadius: '50%',
-    backgroundColor: '#000000',
+    width: 8,
+    height: 8,
+    borderRadius: 6,
+    backgroundColor: '#000', // Black thumb
+    transition: theme.transitions.create(['width'], {
+      duration: 200,
+    }),
   },
   '& .MuiSwitch-track': {
-    borderRadius: 26 / 2,
-    backgroundColor: 'transparent',
-    opacity: 0.2,
-    border: '2px solid',
+    borderRadius: 8, // Half of track height for rounded ends
+    opacity: 1,
+    backgroundColor: 'transparent', // Transparent track background
     boxSizing: 'border-box',
+    border: '2px solid #000',
   },
 }));
 
@@ -59,15 +68,3 @@ export const ViewSwitchToggle = observer(() => {
     </Box>
   );
 });
-
-// <Box display='flex' alignItems='center'>
-//   <Typography variant='body1' style={{ marginRight: '8px' }}>
-//     Table
-//   </Typography>
-
-//   <Switch checked={pageModeStore.tableView} onChange={handleToggle} color='primary' />
-
-//   <Typography variant='body1' style={{ marginLeft: '8px' }}>
-//     Card
-//   </Typography>
-// </Box>

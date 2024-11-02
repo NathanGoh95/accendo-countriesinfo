@@ -26,22 +26,37 @@ const Home = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className='p-4'>
-        <div className='flex justify-between align-center'>
-          <h1>Countries {pageModeStore.tableView ? 'Table' : 'Card'} View</h1>
-          <ThemeSwitchButton />
+      {/* Outer container */}
+      <div className='flex flex-col h-screen w-full overflow-y-scroll'>
+
+        {/* Header container */}
+        <div className='mx-[10rem] py-4'>
+          <div className='flex justify-between items-center'>
+            <h1>Countries {pageModeStore.tableView ? 'Table' : 'Card'} View</h1>
+            <ThemeSwitchButton />
+          </div>
+        </div>
+
+        {/* Main container */}
+        <div className='flex flex-col flex-grow bg-gray-100'>
+          {/* Search bar, filter, and view switch */}
+          <div className='flex justify-between items-center mx-[11rem] py-4'>
+            <SearchBar />
+            <div className='flex items-center space-x-4'>
+              <Filter />
+              <ViewSwitchToggle />
+            </div>
+          </div>
+
+          {pageModeStore.isLoading ? (
+            <Box display='flex' justifyContent='center' alignItems='center' height='70vh'>
+              <CircularProgress color='primary' size={50} thickness={4} />
+            </Box>
+          ) : (
+            <div>{pageModeStore.tableView ? <TableView /> : <CardView />}</div>
+          )}
         </div>
       </div>
-      <SearchBar />
-      <Filter />
-      <ViewSwitchToggle />
-      {pageModeStore.isLoading ? (
-        <Box display='flex' justifyContent='center' alignItems='center' height='70vh'>
-          <CircularProgress color='primary' size={50} thickness={4} />
-        </Box>
-      ) : (
-        <div>{pageModeStore.tableView ? <TableView /> : <CardView />}</div>
-      )}
     </ThemeProvider>
   );
 });

@@ -1,12 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import { apiStore } from '../store/ApiStore';
-import { filteredCountryStore } from '../store/FilteredCountryStore';
-import { Tables } from './Table';
-import { CountryModal } from './CountryModal';
+import { filteredCountryStore } from '@components/app/store/FilteredCountryStore';
+import { Cards } from './Cards';
+import { apiStore } from '@components/app/store/ApiStore';
+import { CountryModal } from '../modal/CountryModal';
 
-const TableView = observer(() => {
+const CardView = observer(() => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
@@ -27,12 +27,14 @@ const TableView = observer(() => {
   return (
     <>
       {/* Render countries */}
-      <div>
-        <Tables countries={filteredCountryStore.filteredCountries} onRowClick={handleOpenModal} />
+      <div className='flex flex-wrap justify-center'>
+        {filteredCountryStore.filteredCountries.map((country, index) => (
+          <Cards key={index} country={country} onClick={handleOpenModal} />
+        ))}
       </div>
       <CountryModal open={openModal} handleClose={handleCloseModal} country={selectedCountry} />
     </>
   );
 });
 
-export default TableView;
+export default CardView;

@@ -6,10 +6,6 @@ import { filteredCountryStore } from "../store/FilteredCountryStore";
 import { pageModeStore } from "../store/PageModeStore";
 
 const CountryDetails = observer(() => {
-  useEffect(() => {
-    apiStore.callApi();
-  }, []);
-
   return (
     <>
       {/* header section & toggles*/}

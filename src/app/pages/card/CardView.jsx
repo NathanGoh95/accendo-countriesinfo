@@ -10,10 +10,6 @@ const CardView = observer(() => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  useEffect(() => {
-    apiStore.callApi();
-  }, []);
-
   const handleOpenModal = (country) => {
     setSelectedCountry(country);
     setOpenModal(true);

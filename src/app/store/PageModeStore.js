@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 
 export class PageModeStore {
   darkMode = true;
@@ -7,12 +7,16 @@ export class PageModeStore {
 
   constructor() {
     makeAutoObservable(this);
+  }
 
-    const savedViewMode = sessionStorage.getItem("viewMode");
-    this.tableView = savedViewMode ? savedViewMode === 'table' : true;
+  initializeSettings() {
+    if (typeof window !== 'undefined') {
+      const savedViewMode = sessionStorage.getItem('viewMode');
+      this.tableView = savedViewMode ? savedViewMode === 'table' : true;
 
-    const savedThemeMode = localStorage.getItem("themeMode");
-    this.darkMode = savedThemeMode ? savedThemeMode === 'dark' : true;
+      const savedThemeMode = localStorage.getItem('themeMode');
+      this.darkMode = savedThemeMode ? savedThemeMode === 'dark' : true;
+    }
   }
 
   toggleViewMode = () => {

@@ -19,10 +19,6 @@ const TableView = observer(() => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  useEffect(() => {
-    apiStore.callApi();
-  }, []);
-
   const handleOpenModal = (country) => {
     setSelectedCountry(country);
     setOpenModal(true);
@@ -68,7 +64,7 @@ const TableView = observer(() => {
           {/* Render countries */}
           <TableBody>
             {filteredCountryStore.filteredCountries.map((country, index) => (
-              <Tables key={index} country={country} onClick={handleOpenModal} />
+              <Tables key={index} country={country} onRowClick={handleOpenModal} />
             ))}
           </TableBody>
         </Table>

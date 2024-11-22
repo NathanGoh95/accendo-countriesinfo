@@ -1,20 +1,25 @@
-import { map, filter } from "lodash";
-import { makeAutoObservable } from "mobx";
+import { map, filter } from 'lodash';
+import { makeAutoObservable } from 'mobx';
 
 export class FilteredCountryStore {
   countries = []; // All countries data
   filteredCountries = []; // Initialize array to store filtered countries based on selected region
   uniqueRegions = new Set(); // Initialize a set to store unique regions name
-  selectedRegion = "All";
+  selectedRegion = 'All';
   countryCode = {}; // Store country code and their full
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  sortDataAscOrder(countries) {
+    return countries.slice().sort((a, b) => a.name.localeCompare(b.name));
+  }
+
   setFilteredCountries = (countries) => {
-    this.filteredCountries = countries;
-  }; // Updates filteredCountries array with the provided list of countries
+    // Ensure data is sorted before setting
+    this.filteredCountries = this.sortDataAscOrder(countries);
+  };
 
   setUniqueRegions = (regions) => {
     this.uniqueRegions = regions;
@@ -34,7 +39,7 @@ export class FilteredCountryStore {
     const { selectedRegion } = this;
     let filteredCountries = [];
 
-    if (selectedRegion === "All") {
+    if (selectedRegion === 'All') {
       // If selected region is 'All', display all countries
       filteredCountries = this.countries;
     } else {
@@ -48,17 +53,16 @@ export class FilteredCountryStore {
     if (!searchInput) {
       // If there's no search input, just show the currently filtered countries (based on region)
       this.setFilteredCountries(this.countries);
-      if (this.selectedRegion !== "All") {
+      if (this.selectedRegion !== 'All') {
         this.filterCountriesByRegion(); // Ensure the region filter is applied
       }
     } else {
-      const filteredSearched = this.selectedRegion === "All"
-        ? this.countries // Search all countries if no region is selected
-        : this.filteredCountries; // Only search filtered countries if a region is selected
+      const filteredSearched =
+        this.selectedRegion === 'All'
+          ? this.countries // Search all countries if no region is selected
+          : this.filteredCountries; // Only search filtered countries if a region is selected
 
-      const filtered = filter(filteredSearched, (country) => 
-        country.name.toLowerCase().includes(searchInput.toLowerCase())
-      );
+      const filtered = filter(filteredSearched, (country) => country.name.toLowerCase().includes(searchInput.toLowerCase()));
       this.setFilteredCountries(filtered); // Update filtered countries with the search results
     }
   };
@@ -77,12 +81,7 @@ export class FilteredCountryStore {
     // Process each country and convert borders to full name using the map
     apiData.forEach((apiCountry) => {
       // Check if currencies property exists and it's an object
-      if (
-        apiCountry.currencies &&
-        typeof apiCountry.currencies === "object" &&
-        apiCountry.name.nativeName &&
-        typeof apiCountry.name.nativeName === "object"
-      ) {
+      if (apiCountry.currencies && typeof apiCountry.currencies === 'object' && apiCountry.name.nativeName && typeof apiCountry.name.nativeName === 'object') {
         // Create variable to store currency from all countries
         let currencies = [];
         // Iterate over the keys of currencies object
@@ -95,16 +94,13 @@ export class FilteredCountryStore {
           }
         });
 
-        let nativeNames = map(apiCountry.name.nativeName, (nativeName) =>
-          nativeName.common ? nativeName.common : null,
-        ).filter(Boolean);
+        let nativeNames = map(apiCountry.name.nativeName, (nativeName) => (nativeName.common ? nativeName.common : null)).filter(Boolean);
 
         let languages = map(apiCountry.languages);
+        // let languages = apiCountry.languages ? Object.values(apiCountry.languages).filter(Boolean) : [];
 
         // Map the border codes to full country names using the countryCode
-        let borderCountries = apiCountry.borders 
-          ? map(apiCountry.borders, (code) => countryCode[code] || code) 
-          : [];
+        let borderCountries = apiCountry.borders ? map(apiCountry.borders, (code) => countryCode[code] || code) : [];
 
         // Push object containing required params into countries array
         countries.push({
@@ -125,13 +121,10 @@ export class FilteredCountryStore {
       }
     });
 
-    this.countries = countries; // Save all countries data
+    this.countries = this.sortDataAscOrder(countries); // Sort all data before saving
     this.setFilteredCountries(countries); // Initialize filtered countries with all data
     this.setCountryCode(countryCode); // Set the country code-to-name map for future use
-
-    uniqueRegionsArray = () => {
-      this.setUniqueRegions([...this.uniqueRegions]);
-    }; // Convert the set back to an array to obtain unique regions
+    this.setUniqueRegions([...this.uniqueRegions]); // Convert the set back to an array to obtain unique regions
   }
 }
 

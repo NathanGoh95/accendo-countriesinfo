@@ -3,7 +3,7 @@ import { filteredCountryStore } from "./FilteredCountryStore";
 
 export class ApiStore {
   apiURL = "https://restcountries.com/v3.1/all";
-  loading = false;
+  isLoading = false;
   error = null;
 
   constructor() {
@@ -11,7 +11,7 @@ export class ApiStore {
   }
 
   callApi = () => {
-    this.loading = true;
+    this.isLoading = true;
     fetch(this.apiURL)
       .then((response) => {
         if (!response.ok) {
@@ -26,7 +26,7 @@ export class ApiStore {
         this.error = error.message;
       })
       .finally(() => {
-        this.loading = false;
+        this.isLoading = false;
       });
   };
 }

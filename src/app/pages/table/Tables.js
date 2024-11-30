@@ -14,7 +14,7 @@ export const Tables = ({ country, onRowClick }) => {
         <img
           src={country.flags}
           alt={`${country.name} flag`}
-          style={{ width: '50px', height: '30px', borderRadius: '5px', objectFit: 'cover' }}
+          style={{ width: '40%', aspectRatio: '3/2', borderRadius: '5px', objectFit: 'cover' }}
         />
       </TableCell>
       <TableCell>{country.population}</TableCell>

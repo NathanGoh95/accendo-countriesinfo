@@ -50,7 +50,7 @@ const Filter = observer(() => {
             ${
               isFocused || isFilterActive || isExpanded
                 ? "border-blue-500 bg-blue-50"
-                : "border-gray-300 hover:border-gray-400"
+                : "bg-white border-gray-300 hover:border-gray-400"
             }`}>
           {filteredCountryStore.selectedRegion === "All"
             ? "Filter by Region"

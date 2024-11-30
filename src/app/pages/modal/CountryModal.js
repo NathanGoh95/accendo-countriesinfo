@@ -22,8 +22,8 @@ export const CountryModal = ({ open, handleClose, country }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '80rem',
-          height: '32rem',
+          width: '90rem',
+          height: '40rem',
           bgcolor: '#e9ecef',
           boxShadow: 24,
           p: 4,
@@ -62,7 +62,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
           <img
             src={country.flags}
             alt={`${country.name} flag`}
-            style={{ width: '22rem', height: '14rem', objectFit: 'cover' }}
+            style={{ aspectRatio: '16/9', width: '100%', height: '14rem', objectFit: 'contain' }}
           />
         </Box>
 

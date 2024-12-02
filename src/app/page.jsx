@@ -55,7 +55,7 @@ const Home = observer(() => {
         </div>
 
         {/* Main container */}
-        <div className={`flex flex-col flex-grow min-h-screen ${pageModeStore.darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
+        <div className={`flex flex-col flex-grow min-h-screen ${pageModeStore.darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
           {/* Search bar, filter, and view switch */}
           <div className='flex justify-between items-center mx-[11rem] py-4'>
             <SearchBar />

@@ -17,12 +17,12 @@ export const Cards = ({ country, onClick }) => {
         borderRadius: '6px',
         overflow: 'hidden',
         background: isDarkMode ? '#3c3c3c' : '#f5f5f5',
-        boxShadow: isDarkMode ? '0 4px 15px rgba(0, 0, 0, 0.5)' : '0 4px 15px rgba(255, 255, 255, 0.1)',
+        boxShadow: isDarkMode ? '0 4px 15px rgba(0, 0, 0, 0.5)' : '0 4px 15px rgba(137,194,217, 0.5)',
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
         m: '2.5rem',
         '&:hover': {
           transform: 'translateY(-5px)',
-          boxShadow: isDarkMode ? '0 8px 20px rgba(0, 0, 0, 0.7)' : '0 8px 20px rgba(255, 255, 255, 0.15)',
+          boxShadow: isDarkMode ? '0 8px 20px rgba(0, 0, 0, 0.7)' : '0 8px 20px rgba(137,194,217, 0.4)',
         },
       }}
       onClick={() => onClick(country)}>

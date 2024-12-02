@@ -55,7 +55,7 @@ const Home = observer(() => {
         </div>
 
         {/* Main container */}
-        <div className='flex flex-col flex-grow bg-gray-100'>
+        <div className={`flex flex-col flex-grow min-h-screen ${pageModeStore.darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
           {/* Search bar, filter, and view switch */}
           <div className='flex justify-between items-center mx-[11rem] py-4'>
             <SearchBar />
@@ -65,12 +65,12 @@ const Home = observer(() => {
             </div>
           </div>
 
-          {(apiStore.isLoading || pageModeStore.isLoading) ? (
+          {apiStore.isLoading || pageModeStore.isLoading ? (
             <Box display='flex' justifyContent='center' alignItems='center' height='70vh'>
               <CircularProgress color='primary' size={50} thickness={4} />
             </Box>
           ) : (
-            <div>{pageModeStore.tableView ? <TableView /> : <CardView />}</div>
+            <div className='flex-grow'>{pageModeStore.tableView ? <TableView /> : <CardView />}</div>
           )}
         </div>
       </div>

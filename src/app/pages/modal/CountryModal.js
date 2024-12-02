@@ -1,8 +1,11 @@
 import { KeyboardBackspace } from '@mui/icons-material';
-import { Box, Button, Chip, Modal, Typography } from '@mui/material';
+import { Box, Button, Chip, Modal, Typography, useTheme } from '@mui/material';
 import * as React from 'react';
 
 export const CountryModal = ({ open, handleClose, country }) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   if (!country) return null;
 
   return (
@@ -24,7 +27,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
           transform: 'translate(-50%, -50%)',
           width: '90rem',
           height: '40rem',
-          bgcolor: '#e9ecef',
+          bgcolor: isDarkMode ? '#1F2937' : '#e9ecef',
           boxShadow: 24,
           p: 4,
           display: 'flex',
@@ -45,7 +48,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
             left: '2rem',
             bgcolor: '#ffff',
             color: 'black',
-            '&:hover': { bgcolor: '#f0f0f0' },
+            '&:hover': { bgcolor: isDarkMode ? '#6e6e6e' : '#89C2D9' },
           }}>
           <KeyboardBackspace sx={{ mr: 1 }} />
           Back
@@ -59,11 +62,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <img
-            src={country.flags}
-            alt={`${country.name} flag`}
-            style={{ aspectRatio: '16/9', width: '100%', height: '14rem', objectFit: 'contain' }}
-          />
+          <img src={country.flags} alt={`${country.name} flag`} style={{ aspectRatio: '16/9', width: '100%', height: '14rem', objectFit: 'contain' }} />
         </Box>
 
         <Box
@@ -117,13 +116,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
             </Typography>
             <Box>
               {country.borders?.map((border, idx) => (
-                <Chip
-                  key={idx}
-                  label={border}
-                  variant='outlined'
-                  size='small'
-                  sx={{ ml: '4px', mb: '4px', bgcolor: '#ffff' }}
-                />
+                <Chip key={idx} label={border} variant='outlined' size='small' sx={{ ml: '4px', mb: '4px', bgcolor: isDarkMode ? '#3c3c3c' : '#ffff' }} />
               ))}
             </Box>
           </Box>

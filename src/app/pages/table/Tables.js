@@ -1,13 +1,16 @@
-import { Chip, TableCell, TableRow } from '@mui/material';
+import { Chip, TableCell, TableRow, useTheme } from '@mui/material';
 
 export const Tables = ({ country, onRowClick }) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   return (
     <TableRow
       onClick={() => onRowClick(country)}
       sx={{
         cursor: 'pointer',
         textAlign: 'center',
-        '&:hover': { backgroundColor: '#89C2D9' },
+        '&:hover': { backgroundColor: isDarkMode ? '#6e6e6e' : '#89C2D9' },
         transition: 'background-color 0.3s ease-in-out',
       }}>
       <TableCell>
@@ -29,7 +32,7 @@ export const Tables = ({ country, onRowClick }) => {
             size='small'
             sx={{
               marginRight: '4px',
-              backgroundColor: '#f5f5f5',
+              backgroundColor: isDarkMode ? '3c3c3c' : '#f5f5f5',
               border: '1px solid #e0e0e0',
               fontWeight: 'bold',
             }}

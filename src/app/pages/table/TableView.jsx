@@ -13,9 +13,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useTheme,
 } from '@mui/material';
 
-const TableView = observer(() => {
+const TableView = observer((country) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const [openModal, setOpenModal] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
@@ -42,23 +45,13 @@ const TableView = observer(() => {
         }}>
         <Table aria-label='country table'>
           <TableHead>
-            <TableRow sx={{ backgroundColor: '#272727', position: 'sticky', top: 0, zIndex: 1 }}>
+            <TableRow sx={{ backgroundColor: isDarkMode ? '#121212' : '#272727', position: 'sticky', top: 0, zIndex: 1 }}>
               <TableCell sx={{ width: '10%' }}></TableCell>
-              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>
-                Population
-              </TableCell>
-              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>
-                Region
-              </TableCell>
-              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>
-                Capital
-              </TableCell>
-              <TableCell sx={{ width: '20%', color: '#F1F1F1', fontWeight: 'bold' }}>
-                Country
-              </TableCell>
-              <TableCell sx={{ width: '16%', color: '#F1F1F1', fontWeight: 'bold' }}>
-                Currency
-              </TableCell>
+              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Population</TableCell>
+              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Region</TableCell>
+              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Capital</TableCell>
+              <TableCell sx={{ width: '20%', color: '#F1F1F1', fontWeight: 'bold' }}>Country</TableCell>
+              <TableCell sx={{ width: '16%', color: '#F1F1F1', fontWeight: 'bold' }}>Currency</TableCell>
             </TableRow>
           </TableHead>
           {/* Render countries */}

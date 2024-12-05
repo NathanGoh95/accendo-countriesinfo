@@ -60,7 +60,7 @@ const Filter = observer(() => {
             ${
               isFocused || isFilterActive || isExpanded
                 ? 'border-blue-500 bg-blue-50 dark:bg-gray-900 dark:border-gray-900'
-                : 'bg-white border-gray-300 hover:border-gray-400 dark:bg-gray-500 dark:border-gray-500'
+                : 'bg-gray-50 border-gray-300 hover:border-gray-400 dark:bg-gray-500 dark:border-gray-500'
             }`}>
           {filteredCountryStore.selectedRegion === 'All' ? 'Filter by Region' : filteredCountryStore.selectedRegion}
           {!isFilterActive && (
@@ -78,7 +78,7 @@ const Filter = observer(() => {
         )}
       </div>
       {isExpanded && (
-        <div className='absolute mt-2 w-full bg-white rounded-md shadow-lg z-10 dark:bg-gray-500 dark:border-gray-500'>
+        <div className='absolute mt-2 w-full bg-gray-50 rounded-md shadow-lg z-10 dark:bg-gray-500 dark:border-gray-500'>
           {[...filteredCountryStore.uniqueRegions].map((region) => (
             <button
               key={region}

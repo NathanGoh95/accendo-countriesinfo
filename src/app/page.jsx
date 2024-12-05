@@ -30,8 +30,8 @@ const Home = observer(() => {
       mode: pageModeStore.getToggleThemeMode,
       ...(pageModeStore.darkMode && {
         background: {
-          default: '#121212',
-          paper: '#1D1D1D',
+          default: '#020617',
+          paper: '#020617',
         },
       }),
     },
@@ -45,9 +45,9 @@ const Home = observer(() => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {/* Outer container */}
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full bg-gray-50 dark:bg-slate-950'>
         {/* Header container */}
-        <div className='mx-[10rem] py-4'>
+        <div className='mx-[10rem] py-4 '>
           <div className='flex justify-between items-center'>
             <h1>Countries {pageModeStore.tableView ? 'Table' : 'Card'} View</h1>
             <ThemeSwitchButton />
@@ -57,7 +57,7 @@ const Home = observer(() => {
         {/* Main container */}
         <div className={`flex flex-col flex-grow min-h-screen ${pageModeStore.darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
           {/* Search bar, filter, and view switch */}
-          <div className='flex justify-between items-center mx-[11rem] py-4'>
+          <div className='flex justify-between items-center px-[15rem] py-4'>
             <SearchBar />
             <div className='flex items-center space-x-4'>
               <Filter />

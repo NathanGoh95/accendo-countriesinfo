@@ -47,7 +47,7 @@ const SearchBar = observer(() => {
             ${
               isFocused || input
                 ? 'border-blue-500 bg-blue-50 dark:bg-gray-900 dark:border-gray-900'
-                : 'border-gray-300 hover:border-gray-400 dark:bg-gray-500 dark:border-gray-500'
+                : 'bg-gray-50 border-gray-300 hover:border-gray-400 dark:bg-gray-500 dark:border-gray-500'
             }`}
           placeholder='Search for a country'
           value={input}

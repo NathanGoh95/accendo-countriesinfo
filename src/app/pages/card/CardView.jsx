@@ -23,7 +23,7 @@ const CardView = observer(() => {
   return (
     <>
       {/* Render countries */}
-      <div className='flex flex-wrap justify-center'>
+      <div className='flex flex-wrap justify-center px-[10rem]'>
         {filteredCountryStore.filteredCountries.map((country, index) => (
           <Cards key={index} country={country} onClick={handleOpenModal} />
         ))}

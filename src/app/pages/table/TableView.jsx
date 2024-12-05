@@ -38,14 +38,15 @@ const TableView = observer((country) => {
         sx={{
           width: '100%',
           margin: 'auto',
-          paddingX: '150px',
+          px: '13rem',
+          py: '2rem',
           display: 'flex',
           justifyContent: 'center',
           overflow: 'auto',
         }}>
         <Table aria-label='country table'>
           <TableHead>
-            <TableRow sx={{ backgroundColor: isDarkMode ? '#121212' : '#272727', position: 'sticky', top: 0, zIndex: 1 }}>
+            <TableRow sx={{ backgroundColor: isDarkMode ? '#020617' : '#272727' }}>
               <TableCell sx={{ width: '10%' }}></TableCell>
               <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Population</TableCell>
               <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Region</TableCell>

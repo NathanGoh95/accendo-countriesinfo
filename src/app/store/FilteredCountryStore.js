@@ -50,19 +50,21 @@ export class FilteredCountryStore {
   };
 
   setSearchInput = (searchInput) => {
-    if (!searchInput) {
-      // If there's no search input, just show the currently filtered countries (based on region)
-      this.setFilteredCountries(this.countries);
-      if (this.selectedRegion !== 'All') {
-        this.filterCountriesByRegion(); // Ensure the region filter is applied
-      }
-    } else {
-      const filteredSearched =
-        this.selectedRegion === 'All'
-          ? this.countries // Search all countries if no region is selected
-          : this.filteredCountries; // Only search filtered countries if a region is selected
+    const { selectedRegion, countries } = this;
 
-      const filtered = filter(filteredSearched, (country) => country.name.toLowerCase().includes(searchInput.toLowerCase()));
+    if (!searchInput) {
+      this.filterCountriesByRegion(); // If there's no search input, just show the currently filtered countries (based on region)
+    } else {
+      // Determine the base list to search from
+      const baseCountries = selectedRegion === 'All'
+        ? countries // Search all countries if no region is selected
+        : countries.filter((country) => country.region === selectedRegion); // Only search filtered countries if a region is selected
+      
+      // Perform the search within the filtered base list
+      const filtered = filter(baseCountries, (country) => 
+        country.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+
       this.setFilteredCountries(filtered); // Update filtered countries with the search results
     }
   };
@@ -94,7 +96,8 @@ export class FilteredCountryStore {
           }
         });
 
-        let nativeNames = map(apiCountry.name.nativeName, (nativeName) => (nativeName.common ? nativeName.common : null)).filter(Boolean);
+        // let nativeNames = map(apiCountry.name.nativeName, (nativeName) => (nativeName.common ? nativeName.common : null)).filter(Boolean);
+        let nativeNames = [...new Set(map(apiCountry.name.nativeName, (nativeName) => (nativeName.common ? nativeName.common : null)).filter(Boolean))];
 
         let languages = map(apiCountry.languages);
         // let languages = apiCountry.languages ? Object.values(apiCountry.languages).filter(Boolean) : [];

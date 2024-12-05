@@ -9,7 +9,7 @@ export const Cards = ({ country, onClick }) => {
     <Card
       sx={{
         width: '275px',
-        height: '290px',
+        height: '300px',
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
@@ -19,7 +19,7 @@ export const Cards = ({ country, onClick }) => {
         background: isDarkMode ? '#3c3c3c' : '#f5f5f5',
         boxShadow: isDarkMode ? '0 4px 15px rgba(0, 0, 0, 0.5)' : '0 4px 15px rgba(137,194,217, 0.5)',
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-        m: '2.5rem',
+        m: '2rem',
         '&:hover': {
           transform: 'translateY(-5px)',
           boxShadow: isDarkMode ? '0 8px 20px rgba(0, 0, 0, 0.7)' : '0 8px 20px rgba(137,194,217, 0.4)',
@@ -28,7 +28,7 @@ export const Cards = ({ country, onClick }) => {
       onClick={() => onClick(country)}>
       <CardMedia component='img' sx={{ aspectRatio: '16/9', objectFit: 'cover' }} image={country.flags} alt={`${country.name} flag`} />
 
-      <CardContent sx={{ height: '100%', padding: '10px', '&:last-child': { paddingBottom: '10px' } }}>
+      <CardContent sx={{ flexGrow: 1, p: '15px', '&:last-child': { paddingBottom: '15px' } }}>
         <Typography variant='h6' component='div' sx={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '4px' }}>
           {country.name}
         </Typography>

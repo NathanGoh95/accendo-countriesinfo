@@ -34,7 +34,7 @@ const SearchBar = observer(() => {
   };
 
   return (
-    <div className='m-1 relative w-[25rem]'>
+    <div className='m-1 relative lg:w-[25rem]'>
       <div
         className={`relative flex items-center transition-all duration-200 ease-in-out 
             ${isFocused || input ? 'shadow-lg' : 'shadow-md hover:shadow-lg'}`}>

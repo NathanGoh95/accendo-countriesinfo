@@ -26,7 +26,9 @@ export class ApiStore {
       this.error = error.message;
     }
 
-    this.isLoading = false;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   };
 }
 

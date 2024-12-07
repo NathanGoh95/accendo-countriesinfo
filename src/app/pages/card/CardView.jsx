@@ -25,7 +25,9 @@ const CardView = observer(() => {
       {/* Render countries */}
       <div className='flex flex-wrap justify-center px-[10rem]'>
         {filteredCountryStore.filteredCountries.map((country, index) => (
-          <Cards key={index} country={country} onClick={handleOpenModal} />
+          <div key={index}>
+            <Cards country={country} onClick={handleOpenModal} />
+          </div>
         ))}
       </div>
       <CountryModal open={openModal} handleClose={handleCloseModal} country={selectedCountry} />

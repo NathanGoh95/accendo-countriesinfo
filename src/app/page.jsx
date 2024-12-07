@@ -47,19 +47,21 @@ const Home = observer(() => {
       {/* Outer container */}
       <div className='flex flex-col w-full bg-gray-50 dark:bg-slate-950'>
         {/* Header container */}
-        <div className='mx-[10rem] py-4 '>
-          <div className='flex justify-between items-center'>
-            <h1>Countries {pageModeStore.tableView ? 'Table' : 'Card'} View</h1>
-            <ThemeSwitchButton />
+        <div className='mx-[10rem] py-4 max-sm:mx-5'>
+          <div className='flex justify-between items-center max-sm:items-end'>
+            <h1 className='max-sm:hidden'>Countries {pageModeStore.tableView ? 'Table' : 'Card'} View</h1>
+            <div className='max-sm:justify-end max-sm:items-end'>
+              <ThemeSwitchButton />
+            </div>
           </div>
         </div>
 
         {/* Main container */}
         <div className={`flex flex-col flex-grow min-h-screen ${pageModeStore.darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
           {/* Search bar, filter, and view switch */}
-          <div className='flex justify-between items-center px-[15rem] py-4'>
+          <div className='sm:flex sm:justify-between sm:items-center px-[15rem] py-4 max-sm:px-5 max-sm:py-5'>
             <SearchBar />
-            <div className='flex items-center space-x-4'>
+            <div className='flex items-center lg:space-x-4 space-x-8 max-sm:py-2'>
               <Filter />
               <ViewSwitchToggle />
             </div>

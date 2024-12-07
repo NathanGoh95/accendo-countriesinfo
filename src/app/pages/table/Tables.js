@@ -1,4 +1,4 @@
-import { Chip, TableCell, TableRow, useTheme } from '@mui/material';
+import { Box, Chip, TableCell, TableRow, useTheme } from '@mui/material';
 
 export const Tables = ({ country, onRowClick }) => {
   const theme = useTheme();
@@ -14,11 +14,9 @@ export const Tables = ({ country, onRowClick }) => {
         transition: 'background-color 0.3s ease-in-out',
       }}>
       <TableCell>
-        <img
-          src={country.flags}
-          alt={`${country.name} flag`}
-          style={{ width: '40%', aspectRatio: '3/2', borderRadius: '5px', objectFit: 'cover' }}
-        />
+        <Box sx={{ width: '30%'}}>
+          <img src={country.flags} alt={`${country.name} flag`} style={{ aspectRatio: '3/2', borderRadius: '5px', objectFit: 'cover' }} />
+        </Box>
       </TableCell>
       <TableCell>{country.population}</TableCell>
       <TableCell>{country.region}</TableCell>

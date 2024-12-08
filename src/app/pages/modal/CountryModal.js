@@ -1,10 +1,11 @@
 import { KeyboardBackspace } from '@mui/icons-material';
-import { Box, Button, Chip, Modal, Typography, useTheme } from '@mui/material';
+import { Box, Button, Chip, Modal, Typography, useMediaQuery, useTheme } from '@mui/material';
 import * as React from 'react';
 
 export const CountryModal = ({ open, handleClose, country }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   if (!country) return null;
 
@@ -22,19 +23,19 @@ export const CountryModal = ({ open, handleClose, country }) => {
       <Box
         sx={{
           position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '90rem',
-          height: '40rem',
+          top: isMobile ? 0 : '50%',
+          left: isMobile ? 0 : '50%',
+          transform: isMobile ? 'none' : 'translate(-50%, -50%)',
+          width: isMobile ? '100%' : '90rem',
+          height: isMobile ? '100%' : '40rem',
           bgcolor: isDarkMode ? '#1F2937' : '#e9ecef',
           boxShadow: 24,
-          p: 4,
+          p: isMobile ? 3 : 4,
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: isMobile ? 'column' : 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: '8px',
+          borderRadius: isMobile ? '0' : '8px',
           '&:focus': {
             outline: 'none',
           },
@@ -44,8 +45,8 @@ export const CountryModal = ({ open, handleClose, country }) => {
           variant='contained'
           sx={{
             position: 'absolute',
-            top: '2rem',
-            left: '2rem',
+            top: isMobile ? '1rem' : '2rem',
+            left: isMobile ? '1rem' : '2rem',
             bgcolor: '#ffff',
             color: 'black',
             '&:hover': { bgcolor: isDarkMode ? '#6e6e6e' : '#89C2D9' },
@@ -56,30 +57,30 @@ export const CountryModal = ({ open, handleClose, country }) => {
 
         <Box
           sx={{
-            width: '40%',
-            height: '100%',
+            width: isMobile ? '80%' : '40%',
+            height: isMobile ? 'auto' : '100%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <img src={country.flags} alt={`${country.name} flag`} style={{ aspectRatio: '16/9', width: '100%', height: '14rem', objectFit: 'contain' }} />
+          <img src={country.flags} alt={`${country.name} flag`} style={{ aspectRatio: '16/9', width: '100%', height: isMobile ? 'auto' : '14rem', objectFit: 'contain' }} />
         </Box>
 
         <Box
           sx={{
-            width: '60%',
+            width: isMobile ? '100%' : '60%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
           }}>
           <Box sx={{ display: 'flex', mb: 2, width: '100%' }}>
-            <Typography variant='h3' sx={{ fontWeight: 'bold', mb: 2 }}>
+            <Typography variant='h3' sx={{ fontWeight: 'bold', mb: 2, ml: isMobile ? 2 : 0, mt: isMobile ? 2 : 0 }}>
               {country.name}
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 3, width: '50%' }}>
+          <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 3, width: isMobile ? '100%' : '50%' }}>
               <Typography variant='body1' gutterBottom>
                 <strong>Native Name:</strong> {country.nativeNames.join(', ')}
               </Typography>
@@ -97,7 +98,7 @@ export const CountryModal = ({ open, handleClose, country }) => {
               </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', width: isMobile ? '100%' : '50%' }}>
               <Typography variant='body1' gutterBottom>
                 <strong>Top Level Domain:</strong> {country.topLevelDomains.join(', ')}
               </Typography>
@@ -110,13 +111,19 @@ export const CountryModal = ({ open, handleClose, country }) => {
             </Box>
           </Box>
 
-          <Box sx={{ mt: '1rem', display: 'flex', flexDirection: 'row' }}>
+          <Box sx={{ mt: '1rem', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
             <Typography variant='body1' gutterBottom sx={{ alignContent: 'center' }}>
               <strong>Border Countries:</strong>
             </Typography>
             <Box>
               {country.borders?.map((border, idx) => (
-                <Chip key={idx} label={border} variant='outlined' size='small' sx={{ ml: '4px', mb: '4px', bgcolor: isDarkMode ? '#3c3c3c' : '#ffff' }} />
+                <Chip
+                  key={idx}
+                  label={border}
+                  variant='outlined'
+                  size='small'
+                  sx={{ ml: isMobile ? 0 : '4px', mr: isMobile ? 1 : '2', mb: '6px', bgcolor: isDarkMode ? '#3c3c3c' : '#ffff' }}
+                />
               ))}
             </Box>
           </Box>

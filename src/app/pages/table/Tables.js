@@ -13,16 +13,16 @@ export const Tables = ({ country, onRowClick }) => {
         '&:hover': { backgroundColor: isDarkMode ? '#6e6e6e' : '#89C2D9' },
         transition: 'background-color 0.3s ease-in-out',
       }}>
-      <TableCell>
-        <Box sx={{ width: '30%'}}>
+      <TableCell sx={{ display: { xs: 'table-cell', md: 'table-cell' }, order: { xs: 1, md: 'unset' } }}>
+        <Box sx={{ width: { xs: '50%', md: '30%' } }}>
           <img src={country.flags} alt={`${country.name} flag`} style={{ aspectRatio: '3/2', borderRadius: '5px', objectFit: 'cover' }} />
         </Box>
       </TableCell>
-      <TableCell>{country.population}</TableCell>
-      <TableCell>{country.region}</TableCell>
-      <TableCell>{country.capital}</TableCell>
-      <TableCell>{country.name}</TableCell>
-      <TableCell>
+      <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>{country.population}</TableCell>
+      <TableCell sx={{ display: { xs: 'table-cell', md: 'table-cell' }, order: { xs: 3, md: 'unset' } }}>{country.region}</TableCell>
+      <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>{country.capital}</TableCell>
+      <TableCell sx={{ display: { xs: 'table-cell', md: 'table-cell' }, order: { xs: 2, md: 'unset' } }}>{country.name}</TableCell>
+      <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
         {country.currencies.map((currency, idx) => (
           <Chip
             key={idx}

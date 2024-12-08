@@ -5,16 +5,7 @@ import { apiStore } from '../../store/ApiStore';
 import { filteredCountryStore } from '../../store/FilteredCountryStore';
 import { Tables } from './Tables';
 import { CountryModal } from '../modal/CountryModal';
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  useTheme,
-} from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
 
 const TableView = observer((country) => {
   const theme = useTheme();
@@ -38,7 +29,7 @@ const TableView = observer((country) => {
         sx={{
           width: '100%',
           margin: 'auto',
-          px: '13rem',
+          px: { xs: '1rem', md: '13rem' },
           py: '2rem',
           display: 'flex',
           justifyContent: 'center',
@@ -47,12 +38,12 @@ const TableView = observer((country) => {
         <Table aria-label='country table'>
           <TableHead>
             <TableRow sx={{ backgroundColor: isDarkMode ? '#020617' : '#272727' }}>
-              <TableCell sx={{ width: '10%' }}></TableCell>
-              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Population</TableCell>
-              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Region</TableCell>
-              <TableCell sx={{ width: '18%', color: '#F1F1F1', fontWeight: 'bold' }}>Capital</TableCell>
-              <TableCell sx={{ width: '20%', color: '#F1F1F1', fontWeight: 'bold' }}>Country</TableCell>
-              <TableCell sx={{ width: '16%', color: '#F1F1F1', fontWeight: 'bold' }}>Currency</TableCell>
+              <TableCell sx={{ width: { xs: '35%', md: '10%', order: { xs: 1, md: 'unset' } } }}></TableCell>
+              <TableCell sx={{ display: { xs: 'none', md: 'table-cell' }, width: { xs: '0', md: '18%' }, color: '#F1F1F1', fontWeight: 'bold' }}>Population</TableCell>
+              <TableCell sx={{ width: { xs: '30%', md: '18%' }, order: { xs: 3, md: 'unset' }, color: '#F1F1F1', fontWeight: 'bold' }}>Region</TableCell>
+              <TableCell sx={{ display: { xs: 'none', md: 'table-cell' }, width: { xs: '0', md: '18%' }, color: '#F1F1F1', fontWeight: 'bold' }}>Capital</TableCell>
+              <TableCell sx={{ width: { xs: '35%', md: '20%' }, order: { xs: 2, md: 'unset' }, color: '#F1F1F1', fontWeight: 'bold' }}>Country</TableCell>
+              <TableCell sx={{ display: { xs: 'none', md: 'table-cell' }, width: { xs: '0', md: '16%' }, color: '#F1F1F1', fontWeight: 'bold' }}>Currency</TableCell>
             </TableRow>
           </TableHead>
           {/* Render countries */}

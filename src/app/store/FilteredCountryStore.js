@@ -114,7 +114,7 @@ export class FilteredCountryStore {
           region: apiCountry.region,
           subregion: apiCountry.subregion,
           capital: apiCountry.capital,
-          topLevelDomains: apiCountry.tld,
+          // topLevelDomains: apiCountry.tld,
           currencies: currencies,
           languages: languages,
           borders: borderCountries,

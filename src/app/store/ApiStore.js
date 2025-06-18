@@ -1,9 +1,10 @@
-import { makeAutoObservable } from "mobx";
-import { filteredCountryStore } from "./FilteredCountryStore";
-import { delay } from "lodash";
+import { makeAutoObservable } from 'mobx';
+import { filteredCountryStore } from './FilteredCountryStore';
+import { delay } from 'lodash';
 
 export class ApiStore {
-  apiURL = "https://restcountries.com/v3.1/all";
+  apiURL =
+    'https://restcountries.com/v3.1/all?fields=name,capital,population,languages,currencies,flags,borders,region,subregion,cca3';
   isLoading = false;
   error = null;
 
@@ -17,7 +18,7 @@ export class ApiStore {
     try {
       const response = await fetch(this.apiURL);
       if (!response.ok) {
-        throw new Error("Failed to fetch data");
+        throw new Error('Failed to fetch data');
       }
 
       const data = await response.json();

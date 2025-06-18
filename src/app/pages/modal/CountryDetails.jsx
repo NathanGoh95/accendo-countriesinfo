@@ -28,7 +28,6 @@ const CountryDetails = observer(() => {
               <p>Region: {country.region}</p>
               <p>Sub Region: {country.subregion}</p>
               <p>Capital: {country.capital}</p>
-              <p>Top Level Domain: {country.topLevelDomains}</p>
               <p>Currencies: {country.currencies.join(', ')}</p>
               <p>Languages: {country.languages.join(', ')}</p>
               <p>Border Countries: {country.borders.join(', ')}</p>

@@ -100,9 +100,6 @@ export const CountryModal = ({ open, handleClose, country }) => {
 
             <Box sx={{ display: 'flex', flexDirection: 'column', width: isMobile ? '100%' : '50%' }}>
               <Typography variant='body1' gutterBottom>
-                <strong>Top Level Domain:</strong> {country.topLevelDomains.join(', ')}
-              </Typography>
-              <Typography variant='body1' gutterBottom>
                 <strong>Currencies:</strong> {country.currencies.join(', ')}
               </Typography>
               <Typography variant='body1' gutterBottom>
